@@ -89,14 +89,25 @@ fetchOneCallWeather();*/
 
 var apiKey = "63ba60e03a73c951ad4f3018320967e5";
 
+lat = JSON.parse(window.localStorage.getItem("lat"));
+lon = JSON.parse(window.localStorage.getItem("lon"));
+console.log(lat);
+console.log(lon);
+
+date = new Date();
+console.log(date);
+
+//var pasta = document.getElementById("dateget")
+document.body.innerHTML = document.body.innerHTML.replace("pasta", date);
+
 // Locally store city name user input
 
 function userCityInput() {
-  cityInputEl = document.getElementById("cityInput");
-  cityInputBtnEl = document.getElementById("cityInputBtn");
+  cityInputEl = document.getElementById("cityinput");
+  cityInputBtnEl = document.getElementById("cityinputbtn");
 
   cityInputBtnEl.addEventListener("click", function () {
-    inputCity = document.getElementById("cityInput").value;
+    inputCity = document.getElementById("cityinput").value;
     localStorage.setItem("cityUserInput", JSON.stringify(inputCity));
   });
 }
@@ -104,7 +115,7 @@ userCityInput();
 
 // Event listner for current location
 
-cityGeoCurrent = document.getElementById("cityCurrent");
+cityGeoCurrent = document.getElementById("citysearchbtn");
 cityGeoCurrent.addEventListener("click", userGeo);
 
 // If user interacts with 5 day weather search by current location retrive lat / lon using Geolocation API and locally store values.
@@ -143,8 +154,6 @@ function errorAlert(error) {
   }
 }
 
-console.log(lat);
-console.log(lon);
 
 /*function fetchOneCallWeather(lat, lon) {
   var request =
