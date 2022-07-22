@@ -16,7 +16,11 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 */
 
-//www.w3schools.com/html/html5_geolocation.asp
+// www.w3schools.com/html/html5_geolocation.asp
+// https://www.youtube.com/watch?v=nGVoHEZojiQ - youtube Steve Griffith - Prof3ssorSt3v3 (JS & Geolocation)
+// https://www.youtube.com/watch?v=NIAqR34eg7I - youtube Steve Griffith - Prof3ssorSt3v3 (OpenWeatherMapAPI)
+// https://www.youtube.com/watch?v=6trGQWzg2AI - Asish George Tech - (How to make Weather App using Openweathermap API | Javascript - Responsive Website)
+//
 
 //Retrive user location to display weather information and make it usable for openweatherAPI else default run for Tacoma
 //Stringify location data and store in local storage
@@ -48,9 +52,7 @@ function errorAlert(error) {
   }
 }
 */
-
-var apiKey = "63ba60e03a73c951ad4f3018320967e5";
-
+/*
 function fetchGeolocation(cityName) {
   var request =
     "http://api.openweathermap.org/geo/1.0/direct?q=${cityname}&appid=63ba60e03a73c951ad4f3018320967e5";
@@ -69,7 +71,7 @@ function fetchGeolocation(cityName) {
 }
 //fetchGeolocation();
 
-/*function fetchOneCallWeather(lat, lon) {
+function fetchOneCallWeather(lat, lon) {
   var request =
     "http://api.openweathermap.org/data/2.5/onecall?appid=63ba60e03a73c951ad4f3018320967e5&lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutley";
 
@@ -84,3 +86,78 @@ function fetchGeolocation(cityName) {
     });
 }
 fetchOneCallWeather();*/
+
+var apiKey = "63ba60e03a73c951ad4f3018320967e5";
+
+// Locally store city name user input
+
+function userCityInput() {
+  cityInputEl = document.getElementById("cityInput");
+  cityInputBtnEl = document.getElementById("cityInputBtn");
+
+  cityInputBtnEl.addEventListener("click", function () {
+    inputCity = document.getElementById("cityInput").value;
+    localStorage.setItem("cityUserInput", JSON.stringify(inputCity));
+  });
+}
+userCityInput();
+
+// Event listner for current location
+
+cityGeoCurrent = document.getElementById("cityCurrent");
+cityGeoCurrent.addEventListener("click", userGeo);
+
+// If user interacts with 5 day weather search by current location retrive lat / lon using Geolocation API and locally store values.
+
+// If user "" but there is an error or user blocks access return alert error for user notification.
+
+function userGeo() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(fetchGeo, errorAlert);
+  } else {
+  }
+}
+
+function fetchGeo(position) {
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+
+  localStorage.setItem("lat", JSON.stringify(lat));
+  localStorage.setItem("lon", JSON.stringify(lon));
+}
+
+function errorAlert(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is not available");
+      break;
+    case error.TIMEOUT:
+      alert("User location request timed out");
+      break;
+    case error.UNKNOWN_ERROR:
+      alert("Unknown error");
+      break;
+  }
+}
+
+console.log(lat);
+console.log(lon);
+
+function fetchOneCallWeather(lat, lon) {
+  var request =
+    "http://api.openweathermap.org/data/2.5/onecall?appid=63ba60e03a73c951ad4f3018320967e5&lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutley";
+
+  fetch(request)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+
+      
+    });
+}
+fetchOneCallWeather();
