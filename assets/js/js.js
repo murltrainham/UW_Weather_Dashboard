@@ -17,9 +17,10 @@ THEN I am again presented with current and future conditions for that city
 */
 
 // www.w3schools.com/html/html5_geolocation.asp
-// https://www.youtube.com/watch?v=nGVoHEZojiQ - youtube Steve Griffith - Prof3ssorSt3v3 (JS & Geolocation)
-// https://www.youtube.com/watch?v=NIAqR34eg7I - youtube Steve Griffith - Prof3ssorSt3v3 (OpenWeatherMapAPI)
+// https://www.youtube.com/watch?v=nGVoHEZojiQ - Steve Griffith - Prof3ssorSt3v3 (JS & Geolocation)
+// https://www.youtube.com/watch?v=NIAqR34eg7I - Steve Griffith - Prof3ssorSt3v3 (OpenWeatherMapAPI)
 // https://www.youtube.com/watch?v=6trGQWzg2AI - Asish George Tech - (How to make Weather App using Openweathermap API | Javascript - Responsive Website)
+// https://youtu.be/18-Ye2L3ej8 - The Midnight - Gloria
 //
 
 //Retrive user location to display weather information and make it usable for openweatherAPI else default run for Tacoma
@@ -89,28 +90,24 @@ fetchOneCallWeather();*/
 
 key1 = "042f6db5a47c70c4e9172cedc3197e3d";
 key2 = "63ba60e03a73c951ad4f3018320967e5";
-
 latprep = JSON.parse(window.localStorage.getItem("lat"));
 lonprep = JSON.parse(window.localStorage.getItem("lon"));
 lat = latprep.toFixed(2);
 lon = lonprep.toFixed(2);
+lang = "en";
+units = "imperial";
+url = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
+urlFrog = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${5}&appid=${key2}`;
 
-console.log(latprep);
-console.log(lonprep);
-console.log(lat);
-console.log(lon);
+//cityname = JSON.parse(window.localStorage.getItem("cityUserInput"));
+//console.log(cityname);
 
-cityname = JSON.parse(window.localStorage.getItem("cityUserInput"));
-console.log(cityname);
-
+// Display date / time
 date = new Date();
 console.log(date);
-
-//var pasta = document.getElementById("dateget")
 document.body.innerHTML = document.body.innerHTML.replace("pasta", date);
 
 // Locally store city name user input
-
 function userCityInput() {
   cityInputEl = document.getElementById("cityinput");
   cityInputBtnEl = document.getElementById("cityinputbtn");
@@ -118,6 +115,16 @@ function userCityInput() {
   cityInputBtnEl.addEventListener("click", function () {
     inputCity = document.getElementById("cityinput").value;
     localStorage.setItem("cityUserInput", JSON.stringify(inputCity));
+    cityName = JSON.parse(window.localStorage.getItem("cityUserInput"));
+    console.log(cityName);
+    var request = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${key1}`;
+    fetch(request)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      });
   });
 }
 userCityInput();
@@ -141,7 +148,6 @@ function userGeo() {
 function fetchGeo(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-
   localStorage.setItem("lat", JSON.stringify(lat));
   localStorage.setItem("lon", JSON.stringify(lon));
 }
@@ -163,10 +169,40 @@ function errorAlert(error) {
   }
 }
 
+function reversieGeo() {
+  fetch(urlFrog)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+reversieGeo();
 
-function fetchGeolocation() {
+function gottaFetchThemAll() {
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+gottaFetchThemAll();
 
+/*function cityNameCall() {
+  var request = `"http://api.openweathermap.org/geo/1.0/direct?q=${cityname}&appid=${key1}`;
 
+  fetch(request)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+cityNameCall();
 /*  var request =
     "http://api.openweathermap.org/geo/1.0/direct?q=${cityname}&appid=63ba60e03a73c951ad4f3018320967e5";
 
@@ -181,20 +217,17 @@ function fetchGeolocation() {
       // render step accept and print cityname
     });
 }*/
-}
-fetchGeolocation();
 
-/*function fetchOneCallWeather(lat, lon){
-  console.log(apiKey);
-  var request = "http://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid=042f6db5a47c70c4e9172cedc3197e3d";
+//function fetchOneCallWeather(lat, lon){
+//  console.log(apiKey);
+//  var request = "http://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&////appid=042f6db5a47c70c4e9172cedc3197e3d";
 
-  fetch(request)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);      
-  });
-}
-fetchOneCallWeather();
-*/
+//  fetch(request)
+// .then(function (response) {
+//   return response.json();
+// })
+// .then(function (data) {
+//  console.log(data);
+// });
+//}
+//fetchOneCallWeather();
