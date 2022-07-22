@@ -6,10 +6,11 @@
 
 body {
   font-family: "Open Sans", sans-serif;
+  background: rgba(115,191,184,.5);
 }
 
 h1 {
-  background-image: linear-gradient(to bottom right, purple, blue);
+  background: rgba(35,100,170,.5);
   border-style: solid;
   border-width: 2px;
   border-color: black;
@@ -18,13 +19,32 @@ h1 {
   color: white;
 }
 
-.container {
-  padding: 20px 70px;
-  color: white;
+p {
+  font-weight: bold;
 }
 
-.geninfo {
+.containercurrent {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+}
+
+.containercurrent .current .gensearch .searchinitiate {
+  display: flex;
+  flex-direction: column;  
+  background: rgba(61,165,217,.5);
+  border: solid;
+  border-radius: 10px;
+  border-width:2px;
+  padding: 20px 20px 20px 20px; 
+  margin-top: 20px;
+}
+
+.containercurrent .current .geninfo {
+  display: flex;
+  flex-direction: column;  
+  background: rgba(61,165,217,.5);
+  border: solid;
+  border-radius: 10px;
+  border-width:2px;
+  padding: 20px 20px 20px 20px; 
+  margin-top: 20px;
 }

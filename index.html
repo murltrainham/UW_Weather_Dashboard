@@ -22,52 +22,72 @@
         <h1>Weather Dashboard</h1>
     </header>
 
-    <div class="container">
+    <div class="containercurrent">
         <div class="current">
 
-            <div class="city" id="city"></div>
-            <div class="date" id="date"></div>
-            <div clas="weathericon" id="weathericon"></div>
+            <div class="gensearch">
+                <div class="searchinitiate">
+                    <div class="searchclass" id="searchcity">
+                        <p>Search by city:</p>
+                        <input type="text" placeholder="City Name" id="cityinput"></textarea>
+                        <button class="searchclass" id="citysearch">Search</button>
+                    </div>
+                    <div class="searchclass" id="searchcitygeo">
+                        <br>
+                        <p>Search by your current location:</p>
+                        <p><button class="searchclass" id="citysearchbtn">Search</button>
+                    </div>
+                </div>
 
-            <div class="currentweather" id="currentweathercontainer">
-                <div class="currenttemp" id="currenttemp">
-                    <p>Tempature</p>
-                    <p>100%</p>
-                </div>
-                <div class="currentweather" id="currenthumidity">
-                    <p>Humidity</p>
-                    <p>100%</p>
-                </div>
-                <div class="currentweather" id="currentwind">
-                    <p>Wind Speed</p>
-                    <p>50 mph</p>
-                </div>
-                <div class="currentweather" id="currentUV">
-                    <p>UV Index</p>
-                    <p>100%</p>
+                <div class="geninfo">
+                    <p>Current location weather:</p>
+                    <div clas="weathergeninfo" id="weathericoncurrent">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" />
+                    </div>
+                    <div class="weathergeninfo" id="city">Tahoe, NV</div>
+                    <br>
+                    <div class="weathergeninfo" id="date">20DEC1983 11:41</div>
+                    <br>
+                    <div class="currentweather" id="currentweathercontainer">
+                        <div class="weathergeninfo" id="currenttemp">
+                            <p>Tempature</p>
+                            <p>100%</p>
+                        </div>
+                        <div class="weathergeninfo" id="currenthumidity">
+                            <p>Humidity</p>
+                            <p>100%</p>
+                        </div>
+                        <div class="weathergeninfo" id="currentwind">
+                            <p>Wind Speed</p>
+                            <p>50 mph</p>
+                        </div>
+                        <div class="weathergeninfo" id="currentUV">
+                            <p>UV Index</p>
+                            <p>100%</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="future">
-        <div class="futureweather" id="1">
-            <img src="" alt="">
-            <p>Tempature</p>
-            <p>100%</p>
-        </div>
-        <div class="futureweather" id="1">
-            <img src="" alt="">
-            <p>Wind Speed</p>
-            <p>500 mph</p>
-        </div>
-        <div class="futureweather" id="1">
-            <img src="" alt="">
-            <p>Humidity</p>
-            <p>100%</p>
-        </div>
-    </div>
-    </div>
+            <div class="containerfuture">
+                <div class="future">
+                    <div class="futureweather" id="1">
+                        <img src="" alt="">
+                        <p>Tempature</p>
+                        <p>100%</p>
+                    </div>
+                    <div class="futureweather" id="1">
+                        <img src="" alt="">
+                        <p>Wind Speed</p>
+                        <p>500 mph</p>
+                    </div>
+                    <div class="futureweather" id="1">
+                        <img src="" alt="">
+                        <p>Humidity</p>
+                        <p>100%</p>
+                    </div>
+                </div>
+            </div>
 
 </body>
 <script src="./assets/js/js.js"></script>

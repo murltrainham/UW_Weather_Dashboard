@@ -146,7 +146,7 @@ function errorAlert(error) {
 console.log(lat);
 console.log(lon);
 
-function fetchOneCallWeather(lat, lon) {
+/*function fetchOneCallWeather(lat, lon) {
   var request =
     "http://api.openweathermap.org/data/2.5/onecall?appid=63ba60e03a73c951ad4f3018320967e5&lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutley";
 
@@ -161,3 +161,4 @@ function fetchOneCallWeather(lat, lon) {
     });
 }
 fetchOneCallWeather();
+*/
