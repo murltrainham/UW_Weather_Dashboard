@@ -87,12 +87,21 @@ function fetchOneCallWeather(lat, lon) {
 }
 fetchOneCallWeather();*/
 
-var apiKey = "63ba60e03a73c951ad4f3018320967e5";
+key1 = "042f6db5a47c70c4e9172cedc3197e3d";
+key2 = "63ba60e03a73c951ad4f3018320967e5";
 
-lat = JSON.parse(window.localStorage.getItem("lat"));
-lon = JSON.parse(window.localStorage.getItem("lon"));
+latprep = JSON.parse(window.localStorage.getItem("lat"));
+lonprep = JSON.parse(window.localStorage.getItem("lon"));
+lat = latprep.toFixed(2);
+lon = lonprep.toFixed(2);
+
+console.log(latprep);
+console.log(lonprep);
 console.log(lat);
 console.log(lon);
+
+cityname = JSON.parse(window.localStorage.getItem("cityUserInput"));
+console.log(cityname);
 
 date = new Date();
 console.log(date);
@@ -155,9 +164,11 @@ function errorAlert(error) {
 }
 
 
-/*function fetchOneCallWeather(lat, lon) {
-  var request =
-    "http://api.openweathermap.org/data/2.5/onecall?appid=63ba60e03a73c951ad4f3018320967e5&lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutley";
+function fetchGeolocation() {
+
+
+/*  var request =
+    "http://api.openweathermap.org/geo/1.0/direct?q=${cityname}&appid=63ba60e03a73c951ad4f3018320967e5";
 
   fetch(request)
     .then(function (response) {
@@ -165,9 +176,25 @@ function errorAlert(error) {
     })
     .then(function (data) {
       console.log(data);
-
-      
+      // access lat and lon from data
+      // call fetchonecallweather and pass through the lat an lon value
+      // render step accept and print cityname
     });
+}*/
+}
+fetchGeolocation();
+
+/*function fetchOneCallWeather(lat, lon){
+  console.log(apiKey);
+  var request = "http://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid=042f6db5a47c70c4e9172cedc3197e3d";
+
+  fetch(request)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);      
+  });
 }
 fetchOneCallWeather();
 */
