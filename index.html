@@ -28,42 +28,53 @@
             <div class="gensearch">
                 <div class="searchinitiate">
                     <div class="searchclass" id="searchcity">
-                        <p>Search by city:</p>
+                        <p id="dog">SEARCH BY CITY</p>
                         <input type="text" placeholder="City Name" id="cityinput"></textarea>
+                        <br>
                         <button class="searchclass" id="citysearch">Search</button>
                     </div>
                     <div class="searchclass" id="searchcitygeo">
                         <br>
-                        <p>Search by your current location:</p>
+                        <p id="otter">SEARCH BY YOUR CURRENT LOCATION</p>
                         <p><button class="searchclass" id="citysearchbtn">Search</button>
+
                     </div>
                 </div>
 
-                <div class="geninfo">
-                    <p>Current location weather:</p>
+                <div class="geninfo" id="rhino">
+                    <p id="bat">CURRENT LOCATION WEATHER</p>
                     <div clas="weathergeninfo" id="weathericoncurrent">
                         <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather" />
                     </div>
-                    <div class="weathergeninfo" id="city">Tahoe, NV</div>
+                    <p class="weathergeninfo" id="cityget">
+                        <span class="weathergeninfocity">LOCATION:</span>
+                        Tahoe, NV
+                    </p>
                     <br>
-                    <div class="weathergeninfo" id="date">20DEC1983 11:41</div>
+                    <p class="weathergeninfo" id="dateget">
+                        <span class="weathergeninfocity">DATE:</span>
+                        20DEC1983 11:41
+                    </p>
                     <br>
                     <div class="currentweather" id="currentweathercontainer">
                         <div class="weathergeninfo" id="currenttemp">
                             <p>Tempature</p>
-                            <p>100%</p>
+                            <p class="weathergeninfo" id="currenttempget">100%</p>
                         </div>
+                        <br>
                         <div class="weathergeninfo" id="currenthumidity">
                             <p>Humidity</p>
-                            <p>100%</p>
+                            <p class="weathergeninfo" id="currenthumidityget">100%</p>
                         </div>
+                        <br>
                         <div class="weathergeninfo" id="currentwind">
                             <p>Wind Speed</p>
-                            <p>50 mph</p>
+                            <p class="weathergeninfo" id="currentwindget">50 mph</p>
                         </div>
+                        <br>
                         <div class="weathergeninfo" id="currentUV">
                             <p>UV Index</p>
-                            <p>100%</p>
+                            <p class="weathergeninfo" id="currentuvget">100%</p>
                         </div>
                     </div>
                 </div>

@@ -16,11 +16,31 @@ h1 {
   border-color: black;
   border-radius: 10px;
   text-align: center;
-  color: white;
+  color: black;
+  font-weight: bold;
 }
 
 p {
   font-weight: bold;
+}
+
+#rhino {
+  text-align: center;
+}
+
+#bat {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+#dog {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+#otter {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .containercurrent {
@@ -36,12 +56,13 @@ p {
   border-width:2px;
   padding: 20px 20px 20px 20px; 
   margin-top: 20px;
+  text-align: center;
 }
 
 .containercurrent .current .geninfo {
   display: flex;
   flex-direction: column;  
-  background: rgba(61,165,217,.5);
+  background: rgba(254,198,1,.5);
   border: solid;
   border-radius: 10px;
   border-width:2px;
