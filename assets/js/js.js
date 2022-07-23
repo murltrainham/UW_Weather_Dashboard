@@ -25,7 +25,8 @@ THEN I am again presented with current and future conditions for that city
 // https://zoom.us/rec/play/pZ5h8CJcC1Pk68_z63DxjHZh8_6XL5R5qhcPnsn3BDAxQfn_V3iebDJIbvylC9PNcf2DlrO-Sx2N4w00. FhIQAgIvCVm2yDiv
 
 // issues to resolve .. having to refresh page to get functionality as initial submit causes lat/lon errors.
-// RESOLVED .. moved the setItem outside of the for loop
+// RESOLVED switched to sessionStorage and calling partdeux within fetchorama (instead of @ the end of pardeux) seemed to enable everything to work properly.
+// UPDATE not resolved...its now doing what it was doing before.
 
 var dateGet = moment().format("lll");
 console.log(dateGet);
@@ -40,9 +41,7 @@ var key1 = `042f6db5a47c70c4e9172cedc3197e3d`;
 var units = `imperial`;
 var lang = `en`;
 
-
-function fetchOrama() {  
-
+function fetchOrama() {
   var city = document.getElementById("cityinput").value;
 
   var request = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key1}`;
@@ -69,26 +68,62 @@ function fetchOrama() {
       );
     });
     requestPartDeux();
+}
+
+function requestPartDeux() {
+  var lat = JSON.parse(sessionStorage.getItem("lat"));
+  var lon = JSON.parse(sessionStorage.getItem("lon"));
+  var temp = JSON.parse(sessionStorage.getItem("temp"));
+  var humidity = JSON.parse(sessionStorage.getItem("humidity"));
+  var windSpeed = JSON.parse(sessionStorage.getItem("windSpeed"));
+  var uv = JSON.parse(sessionStorage.getItem("uv"));
+
+  var requestOrama = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
+
+  fetch(requestOrama)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);     
+      var temp = data.current.temp;
+      var humidity = data.current.humidity;
+      var windSpeed = data.current.wind_speed;
+      var uv = data.current.uvi;
+      console.log(temp);
+      console.log(humidity);
+      console.log(windSpeed);
+      console.log(uv);
+      sessionStorage.setItem("temp", JSON.stringify(temp));
+      sessionStorage.setItem("humidity", JSON.stringify(humidity));
+      sessionStorage.setItem("windSpeed", JSON.stringify(windSpeed));
+      sessionStorage.setItem("uv", JSON.stringify(uv));
+    });
+      document.body.innerHTML = document.body.innerHTML.replace("102.5", temp);
+      document.body.innerHTML = document.body.innerHTML.replace("90", humidity);
+      document.body.innerHTML = document.body.innerHTML.replace("50", windSpeed);
+      document.body.innerHTML = document.body.innerHTML.replace("5", uv);
+}
+
+/*
+  for (var i = 0; i < data.current.length; i++) {
+    var temp = data.current[i].temp;
+    var humidity = data.current[i].humidity;
+    var windSpeed = data.current[i].wind_speed;
+    var uv = data.current[i].uvi;
+    console.log(temp);
+    console.log(humidity);
+    console.log(windSpeed);
+    console.log(uv);
   }
-
-  function requestPartDeux() {
-    var lat = JSON.parse(sessionStorage.getItem("lat"));
-    var lon = JSON.parse(sessionStorage.getItem("lon"));
-    var requestOrama = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
-    console.log(lat);
-    console.log(lon);
-
-    fetch(requestOrama)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-        sessionStorage.setItem("hrugeData",JSON.stringify(data));        
-      });      
+*/
+/*
+  function hrugeDataSmorgasbord() {
+    var albatross = JSON.parse(sessionStorage.getItem("cityData"));
+    console.log(albatross);
   }
-
-
+hrugeDataSmorgasbord();
+*/
 /*
 .then(function (data) {
   console.log(data);
