@@ -24,6 +24,9 @@ THEN I am again presented with current and future conditions for that city
 // https://www.studytonight.com/post/how-to-build-a-weather-app-using-javascript-for-complete-beginners
 // https://zoom.us/rec/play/pZ5h8CJcC1Pk68_z63DxjHZh8_6XL5R5qhcPnsn3BDAxQfn_V3iebDJIbvylC9PNcf2DlrO-Sx2N4w00. FhIQAgIvCVm2yDiv
 
+// issues to resolve .. having to refresh page to get functionality as initial submit causes lat/lon errors.
+// RESOLVED .. moved the setItem outside of the for loop
+
 var dateGet = moment().format("lll");
 console.log(dateGet);
 document.body.innerHTML = document.body.innerHTML.replace("pasta", dateGet);
@@ -31,15 +34,15 @@ document.body.innerHTML = document.body.innerHTML.replace("pasta", dateGet);
 var cityInputEl = document.getElementById("cityinput");
 var cityInputBtnEl = document.getElementById("cityinputbtn");
 
-cityInputBtnEl.addEventListener("click", storeCity);
+cityInputBtnEl.addEventListener("click", fetchOrama);
 
 var key1 = `042f6db5a47c70c4e9172cedc3197e3d`;
 var units = `imperial`;
 var lang = `en`;
 
-function storeCity() {
-  var lang = "en";
-  var units = "imperial";
+
+function fetchOrama() {  
+
   var city = document.getElementById("cityinput").value;
 
   var request = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key1}`;
@@ -57,18 +60,20 @@ function storeCity() {
         console.log(cityName);
         console.log(lat);
         console.log(lon);
-        localStorage.setItem("lat", JSON.stringify(lat));
-        localStorage.setItem("lon", JSON.stringify(lon));
       }
+      sessionStorage.setItem("lat", JSON.stringify(lat));
+      sessionStorage.setItem("lon", JSON.stringify(lon));
       document.body.innerHTML = document.body.innerHTML.replace(
-        "Seattle, WA",
+        "Seattle",
         cityName
       );
     });
+    requestPartDeux();
+  }
 
   function requestPartDeux() {
-    var lat = JSON.parse(window.localStorage.getItem("lat"));
-    var lon = JSON.parse(window.localStorage.getItem("lon"));
+    var lat = JSON.parse(sessionStorage.getItem("lat"));
+    var lon = JSON.parse(sessionStorage.getItem("lon"));
     var requestOrama = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
     console.log(lat);
     console.log(lon);
@@ -79,11 +84,10 @@ function storeCity() {
       })
       .then(function (data) {
         console.log(data);
-        localStorage.setItem("bigData", JSON.stringify(data));
-      });
+        sessionStorage.setItem("hrugeData",JSON.stringify(data));        
+      });      
   }
-  requestPartDeux();
-}
+
 
 /*
 .then(function (data) {
