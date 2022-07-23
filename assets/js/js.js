@@ -79,6 +79,7 @@ function storeCity() {
       })
       .then(function (data) {
         console.log(data);
+        localStorage.setItem("bigData", JSON.stringify(data));
       });
   }
   requestPartDeux();
