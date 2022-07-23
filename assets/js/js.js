@@ -22,6 +22,7 @@ THEN I am again presented with current and future conditions for that city
 // https://www.youtube.com/watch?v=6trGQWzg2AI - Asish George Tech - (How to make Weather App using Openweathermap API | Javascript - Responsive Website)
 // https://youtu.be/18-Ye2L3ej8 - The Midnight - Gloria
 // https://www.studytonight.com/post/how-to-build-a-weather-app-using-javascript-for-complete-beginners
+// https://zoom.us/rec/play/pZ5h8CJcC1Pk68_z63DxjHZh8_6XL5R5qhcPnsn3BDAxQfn_V3iebDJIbvylC9PNcf2DlrO-Sx2N4w00. FhIQAgIvCVm2yDiv
 
 var dateGet = moment().format("lll");
 console.log(dateGet);
@@ -32,11 +33,15 @@ var cityInputBtnEl = document.getElementById("cityinputbtn");
 
 cityInputBtnEl.addEventListener("click", storeCity);
 
+var key1 = `042f6db5a47c70c4e9172cedc3197e3d`;
+var units = `imperial`;
+var lang = `en`;
+
 function storeCity() {
   var lang = "en";
   var units = "imperial";
   var city = document.getElementById("cityinput").value;
-  var key1 = `042f6db5a47c70c4e9172cedc3197e3d`;
+
   var request = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key1}`;
 
   fetch(request)
@@ -46,30 +51,37 @@ function storeCity() {
     .then(function (data) {
       console.log(data);
       for (var i = 0; i < data.length; i++) {
-        cityName = data[i].name;
-        lat = data[i].lat;
-        lon = data[i].lon;
+        var cityName = data[i].name;
+        var lat = data[i].lat;
+        var lon = data[i].lon;
         console.log(cityName);
         console.log(lat);
         console.log(lon);
+        localStorage.setItem("lat", JSON.stringify(lat));
+        localStorage.setItem("lon", JSON.stringify(lon));
       }
       document.body.innerHTML = document.body.innerHTML.replace(
         "Seattle, WA",
         cityName
       );
-      function retriveOrama() {
-        var requestPartDeux = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
-
-        fetch(requestPartDeux)
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            console.log(data);
-          });
-      }
-      retriveOrama();
     });
+
+  function requestPartDeux() {
+    var lat = JSON.parse(window.localStorage.getItem("lat"));
+    var lon = JSON.parse(window.localStorage.getItem("lon"));
+    var requestOrama = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
+    console.log(lat);
+    console.log(lon);
+
+    fetch(requestOrama)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      });
+  }
+  requestPartDeux();
 }
 
 /*
@@ -84,3 +96,26 @@ function storeCity() {
     console.log(lon);
   }
   */
+/*
+  for (var i = 0; i < lemur.length; i++) {
+    temp = lemur[i].temp;
+    humidity = lemur[i].humidity;
+    windSpeed = lemur[i].wind_speed;
+    uv = lemur[i].uvi;
+    console.log(temp);
+    console.log(humidity);
+    console.log(windSpeed);
+    console.log(uv);
+  }
+  */
+/*
+  var requestPartDeux = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
+
+  fetch(requestPartDeux)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (lemur) {
+      console.log(lemur);
+    });
+    */
