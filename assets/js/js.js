@@ -25,7 +25,7 @@ THEN I am again presented with current and future conditions for that city
 // https://zoom.us/rec/play/pZ5h8CJcC1Pk68_z63DxjHZh8_6XL5R5qhcPnsn3BDAxQfn_V3iebDJIbvylC9PNcf2DlrO-Sx2N4w00. FhIQAgIvCVm2yDiv
 
 // issues to resolve .. having to refresh page to get functionality as initial submit causes lat/lon errors.
-// RESOLVED switched to sessionStorage and calling partdeux within fetchorama (instead of @ the end of pardeux) seemed to enable everything to work properly.
+// RESOLVED switched to localStorage and calling partdeux within fetchorama (instead of @ the end of pardeux) seemed to enable everything to work properly.
 // UPDATE not resolved...its now doing what it was doing before.
 
 var dateGet = moment().format("lll");
@@ -60,8 +60,8 @@ function fetchOrama() {
         console.log(lat);
         console.log(lon);
       }
-      sessionStorage.setItem("lat", JSON.stringify(lat));
-      sessionStorage.setItem("lon", JSON.stringify(lon));
+      localStorage.setItem("lat", JSON.stringify(lat));
+      localStorage.setItem("lon", JSON.stringify(lon));
       document.body.innerHTML = document.body.innerHTML.replace(
         "Seattle",
         cityName
@@ -71,12 +71,12 @@ function fetchOrama() {
 }
 
 function requestPartDeux() {
-  var lat = JSON.parse(sessionStorage.getItem("lat"));
-  var lon = JSON.parse(sessionStorage.getItem("lon"));
-  var temp = JSON.parse(sessionStorage.getItem("temp"));
-  var humidity = JSON.parse(sessionStorage.getItem("humidity"));
-  var windSpeed = JSON.parse(sessionStorage.getItem("windSpeed"));
-  var uv = JSON.parse(sessionStorage.getItem("uv"));
+  var lat = JSON.parse(localStorage.getItem("lat"));
+  var lon = JSON.parse(localStorage.getItem("lon"));
+  var temp = JSON.parse(localStorage.getItem("temp"));
+  var humidity = JSON.parse(localStorage.getItem("humidity"));
+  var windSpeed = JSON.parse(localStorage.getItem("windSpeed"));
+  var uv = JSON.parse(localStorage.getItem("uv"));
 
   var requestOrama = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key1}&units=${units}&lang=${lang}&exclude=hourly,minutely`;
 
@@ -94,10 +94,10 @@ function requestPartDeux() {
       console.log(humidity);
       console.log(windSpeed);
       console.log(uv);
-      sessionStorage.setItem("temp", JSON.stringify(temp));
-      sessionStorage.setItem("humidity", JSON.stringify(humidity));
-      sessionStorage.setItem("windSpeed", JSON.stringify(windSpeed));
-      sessionStorage.setItem("uv", JSON.stringify(uv));
+      localStorage.setItem("temp", JSON.stringify(temp));
+      localStorage.setItem("humidity", JSON.stringify(humidity));
+      localStorage.setItem("windSpeed", JSON.stringify(windSpeed));
+      localStorage.setItem("uv", JSON.stringify(uv));
     });
       document.body.innerHTML = document.body.innerHTML.replace("102.5", temp);
       document.body.innerHTML = document.body.innerHTML.replace("90", humidity);
@@ -119,7 +119,7 @@ function requestPartDeux() {
 */
 /*
   function hrugeDataSmorgasbord() {
-    var albatross = JSON.parse(sessionStorage.getItem("cityData"));
+    var albatross = JSON.parse(localStorage.getItem("cityData"));
     console.log(albatross);
   }
 hrugeDataSmorgasbord();
